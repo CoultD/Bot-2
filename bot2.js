@@ -1,8 +1,8 @@
+const processCommand = require('./Commands/handler')
 const Discord = require('discord.js')
 const { prefix, token } = require('./config.json');
 const client = new Discord.Client();
-const google = new imageSearch('016680069834685266942:kgtexi4k1ey', ' AIzaSyDKIJoQklQtYTn-x-jG2-assNAr_-gi7TI');
-const imageSearch = require('image-search-google');
+
 
 client.on('ready', () => {
 
@@ -26,51 +26,6 @@ client.on('ready', () => {
     processCommand(receivedMessage);
     }
 })
-    function processCommand(receivedMessage) {
-        let fullCommand = receivedMessage.content.substr(1) // Remove the leading exclamation mark
-        let splitCommand = fullCommand.split(" ") // Split the message up in to pieces for each space
-        let primaryCommand = splitCommand[0] // The first word directly after the exclamation is the command
-        let arguments = splitCommand.slice(1) // All other words are arguments/parameters/options for the command
-    
-        console.log("Command received: " + primaryCommand)
-        console.log("Arguments: " + arguments) // There may not be any arguments
-        
-        if (primaryCommand == "depression") {
-           depressionCommand(arguments, receivedMessage)
-        }
-        if(primaryCommand == "help") {
-            helpCommand(arguments,receivedMessage)
-        }
-        if(primaryCommand == "img"){
-            ImageCommand(arguments,receivedMessage)
-        }
-    }
-    function ImageCommand(arguments, receivedMessage){
-        if(ImageCommand.arguments = primaryCommand)
-        google.search('APJ Abdul kalam', options)
-	.then(images => {
-		
-		[{
-			'url': item.link,
-            'thumbnail':item.image.thumbnailLink,
-            'snippet':item.title,
-            'context': item.image.contextLink
-		}]
-		
-	})
-    }
-
-    function depressionCommand(arguments, receivedMessage){
-        const attachment = new Discord.Attachment("emote.png")
-        if(depressionCommand.arguments = "depression")
-        receivedMessage.channel.send(attachment)
-    }
-    
-    function helpCommand(arguments, receivedMessage){
-        if(helpCommand.arguments = "help")
-        receivedMessage.channel.send("nigga")
-    }
-
     client.on('message', message => {
         /*if(message.member.hasPermission(["KICK_MEMBERS","BAN_MEMBERS"])) {
             if(message.content.startsWith(`${prefix}kick`)){

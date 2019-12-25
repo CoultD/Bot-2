@@ -15,7 +15,7 @@ module.exports = function(receivedMessage) {
         help(arguments,receivedMessage)
     }
     if(primaryCommand == "img"){
-        Image(arguments,receivedMessage)
+        img(arguments,receivedMessage)
     }
     if (primaryCommand == "depression") {
         depression(arguments, receivedMessage)

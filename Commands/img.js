@@ -1,17 +1,15 @@
 const {GoogleApi, cseID} = require("../config.json");
 const imageSearch = require('image-search-google');
+const options = {page:1};
 const google = new imageSearch(cseID, GoogleApi);
+
 module.exports = function(arguments, receivedMessage){
-    if(arguments = primaryCommand)
-    google.search('APJ Abdul kalam', options)
-.then(images => {
+    if(arguments.length === 0){return}
+    google.search(arguments.join(" "), options)
+    .then(images => {
+        if(images.length === 0){return}
+console.log(images)
+return receivedMessage.channel.send(images[0].url)
+    })
     
-    [{
-        'url': item.link,
-        'thumbnail':item.image.thumbnailLink,
-        'snippet':item.title,
-        'context': item.image.contextLink
-    }]
-    
-})
 }

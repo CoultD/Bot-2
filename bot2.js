@@ -18,26 +18,26 @@ client.on('ready', () => {
         })
     })  
 })
-    client.on('message', receivedMessage => {
+client.on('message', receivedMessage => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
         return
     }
     if(receivedMessage.content.startsWith(`${prefix}`)){
-    processCommand(receivedMessage);
+        processCommand(receivedMessage);
     }
 })
-    client.on('message', message => {
+client.on('message', message => {
         /*if(message.member.hasPermission(["KICK_MEMBERS","BAN_MEMBERS"])) {
             if(message.content.startsWith(`${prefix}kick`)){
                 let member = message.mentions.members.first();
                 member.kick().then((member) => {
-                 message.channel.send(":wave: " + member.displayName + " Has been yotted")
+                message.channel.send(":wave: " + member.displayName + " Has been yotted")
             })
         }
         }*/
         //let generalChannel = client.channels.get("221786958718959616")
         
-    if(!message.guild) return;{
+    /*if(!message.guild) return;
     if(message.content === (`${prefix}join`)) {
         if(message.member.voiceChannel){
             message.member.voiceChannel.join()
@@ -45,16 +45,14 @@ client.on('ready', () => {
                 message.reply("Joined VC");
             })
             .catch(console.log);
-            }else{
-                message.reply("Join a VC first");
-            }
-        }
-        
-    }
-    if(!message.guild) return;{
-        if(message.content === (`${prefix}disconnect`)) {
-            message.member.voiceChannel.leave()
+        }else{
+            message.reply("Join a VC first");
         }
     }
+         
+    if(!message.guild) return;
+    if(message.content === (`${prefix}disconnect`)) {
+        message.member.voiceChannel.leave()
+    }*/
 })
     client.login(token)

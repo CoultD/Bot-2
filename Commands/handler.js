@@ -1,3 +1,6 @@
+const play = require('./play')
+const resume = require('./resume')
+const pause = require('./pause')
 const help = require('./help')
 const img = require('./img')
 const depression = require('./depression')
@@ -14,11 +17,20 @@ module.exports = function(receivedMessage) {
     if(primaryCommand == "help") {
         help(arguments,receivedMessage)
     }
-    if(primaryCommand == "img"){
+    if(primaryCommand == "img") {
         img(arguments,receivedMessage)
     }
     if (primaryCommand == "depression") {
         depression(arguments, receivedMessage)
-     }
-   
+    }
+    if (primaryCommand == "play") {
+        play(arguments, receivedMessage)
+    }
+    if (primaryCommand == "pause") {
+        pause(arguments, receivedMessage)
+    }
+    if (primaryCommand == "resume") {
+        resume(arguments, receivedMessage)
+    }
+
 }

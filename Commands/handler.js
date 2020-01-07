@@ -1,4 +1,5 @@
 const play = require('./play')
+const yt = require('./youtube-search')
 const resume = require('./resume')
 const pause = require('./pause')
 const help = require('./help')
@@ -9,28 +10,30 @@ module.exports = function(receivedMessage) {
     let fullCommand = receivedMessage.content.substr(1) // Remove the leading exclamation mark
     let splitCommand = fullCommand.split(" ") // Split the message up in to pieces for each space
     let primaryCommand = splitCommand[0] // The first word directly after the exclamation is the command
-    let arguments = splitCommand.slice(1) // All other words are arguments/parameters/options for the command
+    let args = splitCommand.slice(1) // All other words are arguments/parameters/options for the command
 
     console.log("Command received: " + primaryCommand)
-    console.log("Arguments: " + arguments) // There may not be any arguments
+    console.log("Arguments: " + args) // There may not be any arguments
 
     if(primaryCommand == "help") {
-        help(arguments,receivedMessage)
+        help(args,receivedMessage)
     }
     if(primaryCommand == "img") {
-        img(arguments,receivedMessage)
+        img(args,receivedMessage)
     }
     if (primaryCommand == "depression") {
-        depression(arguments, receivedMessage)
+        depression(args, receivedMessage)
     }
     if (primaryCommand == "play") {
-        play(arguments, receivedMessage)
+        play(args, receivedMessage)
     }
     if (primaryCommand == "pause") {
-        pause(arguments, receivedMessage)
+        pause(args, receivedMessage)
     }
     if (primaryCommand == "resume") {
-        resume(arguments, receivedMessage)
+        resume(args, receivedMessage)
     }
-
+    if (primaryCommand == "yt"){
+        yt(args, receivedMessage)
+    }
 }

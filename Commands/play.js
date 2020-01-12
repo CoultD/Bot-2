@@ -4,46 +4,56 @@ const ytdl = require('ytdl-core')
 const search = require('youtube-search');
 const validUrl = require('valid-url');
 
-module.exports = function(args, receivedMessage) {
-    const streamOptions = { seek: 0, volume: 0.3, passes: 2 };
-    const broadcast = receivedMessage.client.createVoiceBroadcast();
-
-    if(validUrl.isUri(receivedMessage.content)){
-        if(receivedMessage.guild && receivedMessage.member.voiceChannel){
-            receivedMessage.member.voiceChannel.join()
-            .then(connection => {
-                const stream = ytdl(args.join(" "), {filter: 'audioonly'});
-                broadcast.playStream(stream, streamOptions);
-                const dispatcher = connection.playBroadcast(broadcast, streamOptions);
-                return ytdl.getInfo(args.join(" "));
-            })
-            .then(info => {
-            receivedMessage.reply("Now playing `" + info.title + "`")
-            .catch(console.error);
-            })
-        }
-    }
-    else{
+var queue = []
+var playing = false
+const streamOptions = { seek: 0, volume: 0.2, passes: 2 };
+module.exports = async function(args, receivedMessage) {
+    const joinedArgs = args.join(" ");
+    if(validUrl.isUri(joinedArgs)){
+        queue.push({url:joinedArgs, message:receivedMessage})
+    }else{
         const opts = {
             type:"video",
-            maxResults: 1,
+            maxResults: 3,
             key: GoogleApi
         };
-
         if(receivedMessage.guild && receivedMessage.member.voiceChannel){
-            Promise.all([receivedMessage.member.voiceChannel.join(), search(receivedMessage.content, opts)])
-            .then(values => {
-                const connection = values[0]
-                const results = values[1].results
-                const stream = ytdl(results[0].link, {filter: 'audioonly'});
-                broadcast.playStream(stream, streamOptions);
-                const dispatcher = connection.playBroadcast(broadcast, streamOptions);
-                return ytdl.getInfo(results[0].link);
+            const linkFinder = await search(joinedArgs, opts)
+            queue.push({url:linkFinder.results[0].link, message:receivedMessage})
+        }
+    }
+    if(queue[0] && !playing){
+        playNext(queue[0])
+    }
+}
+function playNext(video){
+    const url = video.url
+    const message = video.message
+
+    if(message.guild && message.member.voiceChannel){
+        message.member.voiceChannel.join()
+        .then(connection => {
+            const broadcast = message.client.createVoiceBroadcast();
+            const stream = ytdl(url, {filter: "audioonly"});
+            connection.playBroadcast(broadcast, streamOptions);
+            broadcast.playStream(stream, streamOptions)
+                .on("end", reason => {
+                console.log("haha yes this ended")
+                playing = false
+                queue.shift()
+                if(queue[0]){
+                    setTimeout(function(){
+                        playNext(queue[0])
+                    },500)
+                    console.log("playing Next: " + queue[0].url) 
+                }
             })
-            .then(info =>{
-                receivedMessage.reply("Now playing `" + info.title + "`")
+            ytdl.getInfo(url)
+                .then(info => {
+                message.reply("Now playing `" + info.title + "`")
                 .catch(console.error);
-            })
-        };
+                })
+            playing = true
+        })
     }
 }

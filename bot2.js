@@ -3,7 +3,6 @@ const Discord = require('discord.js')
 const { prefix, token } = require('./config.json');
 const client = new Discord.Client();
 
-
 client.on('ready', () => {
 
     client.user.setActivity("Pepe", {type: "PLAYING"})

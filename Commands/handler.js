@@ -6,6 +6,7 @@ const help = require('./help')
 const img = require('./img')
 const depression = require('./depression')
 const Discord = require('discord.js')
+const roll = require('./roll')
 module.exports = function(receivedMessage) {
     let fullCommand = receivedMessage.content.substr(1) // Remove the leading exclamation mark
     let splitCommand = fullCommand.split(" ") // Split the message up in to pieces for each space
@@ -35,5 +36,8 @@ module.exports = function(receivedMessage) {
     }
     if (primaryCommand == "yt"){
         yt(args, receivedMessage)
+    }
+    if (primaryCommand == "roll"){
+        roll(args, receivedMessage)
     }
 }

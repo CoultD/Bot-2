@@ -17,12 +17,12 @@ client.on('ready', () => {
         })
     })  
 })
-client.on('message', receivedMessage => {
-    if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
+client.on('message', message => {
+    if (message.author == client.user) { // Prevent bot from responding to its own messages
         return
     }
-    if(receivedMessage.content.startsWith(`${prefix}`)){
-        processCommand(receivedMessage);
+    if(message.content.startsWith(`${prefix}`)){
+        processCommand(message);
     }
 })
 client.on('message', message => {

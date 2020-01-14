@@ -7,8 +7,11 @@ const img = require('./img')
 const depression = require('./depression')
 const Discord = require('discord.js')
 const roll = require('./roll')
-module.exports = function(receivedMessage) {
-    let fullCommand = receivedMessage.content.substr(1) // Remove the leading exclamation mark
+const avatar = require('./avatarUrl')
+const skip = require('./skip')
+
+module.exports = function(message) {
+    let fullCommand = message.content.substr(1) // Remove the leading exclamation mark
     let splitCommand = fullCommand.split(" ") // Split the message up in to pieces for each space
     let primaryCommand = splitCommand[0] // The first word directly after the exclamation is the command
     let args = splitCommand.slice(1) // All other words are arguments/parameters/options for the command
@@ -17,27 +20,33 @@ module.exports = function(receivedMessage) {
     console.log("Arguments: " + args) // There may not be any arguments
 
     if(primaryCommand == "help") {
-        help(args,receivedMessage)
+        help(args,message)
     }
     if(primaryCommand == "img") {
-        img(args,receivedMessage)
+        img(args,message)
     }
     if (primaryCommand == "depression") {
-        depression(args, receivedMessage)
+        depression(args, message)
     }
     if (primaryCommand == "play") {
-        play(args, receivedMessage)
+        play.play(args, message)
     }
     if (primaryCommand == "pause") {
-        pause(args, receivedMessage)
+        pause(args, message)
     }
     if (primaryCommand == "resume") {
-        resume(args, receivedMessage)
+        resume(args, message)
     }
     if (primaryCommand == "yt"){
-        yt(args, receivedMessage)
+        yt(args, message)
     }
     if (primaryCommand == "roll"){
-        roll(args, receivedMessage)
+        roll(args, message)
+    }
+    if (primaryCommand == "avatar"){
+        avatar(args, message)
+    }
+    if (primaryCommand == "skip"){
+        skip(args, message)
     }
 }

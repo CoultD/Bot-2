@@ -2,17 +2,17 @@
 const play = require("./play")
 const ytdl = require('ytdl-core')
 const search = require('youtube-search');
-module.exports = function(args, receivedMessage) {
+module.exports = function(args, message) {
   const streamOptions = { seek: 0, volume: 0.3, passes: 1 };
-  const broadcast = receivedMessage.client.createVoiceBroadcast();
+  const broadcast = message.client.createVoiceBroadcast();
   const opts = {
     type:"video",
     maxResults: 1,
     key: GoogleApi
   };
 
-  if(receivedMessage.guild && receivedMessage.member.voiceChannel){
-    Promise.all([receivedMessage.member.voiceChannel.join(), search(receivedMessage.content, opts)])
+  if(message.guild && message.member.voiceChannel){
+    Promise.all([message.member.voiceChannel.join(), search(message.content, opts)])
     .then(values => {
       const connection = values[0]
       const results = values[1].results
@@ -22,7 +22,7 @@ module.exports = function(args, receivedMessage) {
       return ytdl.getInfo(results[0].link);
     })
     .then(info =>{
-      receivedMessage.reply("Now playing `" + info.title + "`")
+      message.reply("Now playing `" + info.title + "`")
       .catch(console.error);
     })
   };
@@ -32,19 +32,19 @@ module.exports = function(args, receivedMessage) {
 const play = require("./play")
 const ytdl = require('ytdl-core')
 const search = require('youtube-search');
-module.exports = function(args, receivedMessage) {
+module.exports = function(args, message) {
   const streamOptions = { seek: 0, volume: 0.3, passes: 1 };
-  const broadcast = receivedMessage.client.createVoiceBroadcast();
+  const broadcast = message.client.createVoiceBroadcast();
   const opts = {
     type:"video",
     maxResults: 1,
     key: GoogleApi
   };
 
-    if(receivedMessage.guild && receivedMessage.member.voiceChannel){
-      receivedMessage.member.voiceChannel.join()
+    if(message.guild && message.member.voiceChannel){
+      message.member.voiceChannel.join()
       .then(connection => {
-          search(receivedMessage.content, opts, function(err, results){
+          search(message.content, opts, function(err, results){
           if(err){ 
             console.log(err);
             console.dir(results);
@@ -55,7 +55,7 @@ module.exports = function(args, receivedMessage) {
           const dispatcher = connection.playBroadcast(broadcast, streamOptions);
           ytdl.getInfo(results[0].link)
           .then(info =>{
-            receivedMessage.reply("Now playing `" + info.title + "`")
+            message.reply("Now playing `" + info.title + "`")
             .catch(console.error);
           })
         })

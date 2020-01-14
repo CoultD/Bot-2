@@ -1,5 +1,5 @@
-module.exports = function(args, receivedMessage) {
-    if(receivedMessage.guild && receivedMessage.guild.voiceConnection){
-        receivedMessage.guild.voiceConnection.dispatcher.resume()
+module.exports = function(args, message) {
+    if(message.guild && message.guild.voiceConnection){
+        message.guild.voiceConnection.dispatcher.resume()
     } 
 }

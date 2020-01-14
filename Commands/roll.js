@@ -1,7 +1,7 @@
-module.exports = function(args, receivedMessage) {
+module.exports = function(args, message) {
 
-    if(receivedMessage.guild && receivedMessage.channel){
+    if(message.guild && message.channel){
         const joinedArgs = parseInt(args.join(" "),10)
-        receivedMessage.reply(":game_die:  `" + Math.floor(Math.random() * Math.floor(joinedArgs) +1)+ "`")
+        message.reply(":game_die:  `" + Math.floor(Math.random() * Math.floor(joinedArgs) +1)+ "`")
     }
 }

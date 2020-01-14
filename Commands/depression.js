@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-module.exports = function(args, receivedMessage) { 
+module.exports = function(args, message) { 
     const attachment = new Discord.Attachment("emote.png")
-    receivedMessage.channel.send(attachment)
+    message.channel.send(attachment)
 }

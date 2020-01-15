@@ -3,14 +3,18 @@ const yt = require('./youtube-search')
 const resume = require('./resume')
 const pause = require('./pause')
 const help = require('./help')
-const img = require('./img')
+const ImageCommand = require('./img')
 const depression = require('./depression')
 const Discord = require('discord.js')
 const roll = require('./roll')
 const avatar = require('./avatarUrl')
 const skip = require('./skip')
+const commands = require('./commands')
+const next = require('./next')
 
-module.exports = function(message) {
+exports.imageClasses = {}
+exports.handle = function (message) {
+
     let fullCommand = message.content.substr(1) // Remove the leading exclamation mark
     let splitCommand = fullCommand.split(" ") // Split the message up in to pieces for each space
     let primaryCommand = splitCommand[0] // The first word directly after the exclamation is the command
@@ -23,7 +27,10 @@ module.exports = function(message) {
         help(args,message)
     }
     if(primaryCommand == "img") {
-        img(args,message)
+        if(!this.imageClasses[message.guild.id]){
+            this.imageClasses[message.guild.id] = new ImageCommand()
+        }
+        this.imageClasses[message.guild.id].run(args,message)
     }
     if (primaryCommand == "depression") {
         depression(args, message)
@@ -48,5 +55,11 @@ module.exports = function(message) {
     }
     if (primaryCommand == "skip"){
         skip(args, message)
+    }
+    if (primaryCommand == "commands"){
+        commands(args, message)
+    }
+    if (primaryCommand == "n"){
+        next(args, message)
     }
 }

@@ -4,8 +4,9 @@ const { prefix, token } = require('./config.json');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-
-    client.user.setActivity("Pepe", {type: "PLAYING"})
+    var currentPlaying = ["Loading..."," Funny text","Test","Ready","Haha Yes"]
+    var randomPlaying = currentPlaying[Math.floor(currentPlaying.length * Math.random())]
+    client.user.setActivity(randomPlaying, {type: "PLAYING"});
     // List servers the bot is connected to
     console.log("Servers:")
     client.guilds.forEach((guild) => {
@@ -22,7 +23,7 @@ client.on('message', message => {
         return
     }
     if(message.content.startsWith(`${prefix}`)){
-        processCommand(message);
+        processCommand.handle(message);
     }
 })
 client.on('message', message => {

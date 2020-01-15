@@ -2,13 +2,22 @@ const {GoogleApi, cseID} = require("../config.json");
 const imageSearch = require('image-search-google');
 const options = {page:1};
 const google = new imageSearch(cseID, GoogleApi);
+const { RichEmbed } = require('discord.js');
 
-module.exports = function(args, message){
-    if(args.length === 0)return;
-    google.search(args.join(" "), options)
-    .then(images => {
-        if(images.length === 0)return;
-        console.log(images)
-        return message.channel.send(images[0].url)
-    }) 
+module.exports = class ImageCommand {
+    constructor(){
+        this.storage = []
+        this.message = null
+    }
+    run(args, message){
+        if(args.length === 0)return;
+        google.search(args.join(" "), options)
+        .then(async results => {
+            if(results.length === 0)return;
+            const embed = new RichEmbed().setImage(results[0].url)
+            console.log(results)
+            this.message = await message.channel.send("", embed)
+            this.storage = results
+        })
+    }
 }

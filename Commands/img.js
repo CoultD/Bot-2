@@ -1,8 +1,9 @@
 const {GoogleApi, cseID} = require("../config.json");
 const imageSearch = require('image-search-google');
-const options = {page:1};
+const options = {page:1, type:"safe"};
 const google = new imageSearch(cseID, GoogleApi);
 const { RichEmbed } = require('discord.js');
+const config = require('../config');
 
 module.exports = class ImageCommand {
     constructor(){
@@ -14,7 +15,7 @@ module.exports = class ImageCommand {
         google.search(args.join(" "), options)
         .then(async results => {
             if(results.length === 0)return;
-            const embed = new RichEmbed().setImage(results[0].url)
+            const embed = new RichEmbed().setAuthor(message.author.username).setDescription("`$n` for next image").setImage(results[0].url)
             console.log(results)
             this.message = await message.channel.send("", embed)
             this.storage = results

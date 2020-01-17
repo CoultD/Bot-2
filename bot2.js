@@ -4,7 +4,7 @@ const { prefix, token } = require('./config.json');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-    var currentPlaying = ["Loading..."," Funny text","Test","Ready","Haha Yes"]
+    var currentPlaying = ["oliver still has no manga channel haha","funny text","haha yes"]
     var randomPlaying = currentPlaying[Math.floor(currentPlaying.length * Math.random())]
     client.user.setActivity(randomPlaying, {type: "PLAYING"});
     // List servers the bot is connected to

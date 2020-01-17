@@ -11,6 +11,8 @@ const avatar = require('./avatarUrl')
 const skip = require('./skip')
 const commands = require('./commands')
 const next = require('./next')
+const poggersfish = require('./poggersfish')
+const disconnect = require('./disconnect')
 
 exports.imageClasses = {}
 exports.handle = function (message) {
@@ -61,5 +63,11 @@ exports.handle = function (message) {
     }
     if (primaryCommand == "n"){
         next(args, message)
+    }
+    if (primaryCommand == "poggers"){
+        poggersfish(args, message)
+    }
+    if (primaryCommand == "disconnect"){
+        disconnect(args, message)
     }
 }

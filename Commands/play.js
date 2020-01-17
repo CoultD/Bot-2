@@ -6,7 +6,7 @@ const validUrl = require('valid-url');
 
 var queue = []
 var playing = false
-const streamOptions = { seek: 0, volume: 0.2, passes: 2 };
+const streamOptions = { seek: 0, volume: 0.7, passes: 3 };
 module.exports =  new class {
     constructor(){
         this.queue = []
@@ -51,7 +51,7 @@ module.exports =  new class {
                         const that = this;
                         setTimeout(function(){
                             that.playNext(that.queue[0])
-                        },500)
+                        },1000)
                         console.log("playing Next: " + this.queue[0].url) 
                     }
                 })

@@ -37,7 +37,7 @@ client.on('message', message => {
         }*/
         //let generalChannel = client.channels.get("221786958718959616")
         
-    /*if(!message.guild) return;
+    if(!message.guild) return;
     if(message.content === (`${prefix}join`)) {
         if(message.member.voiceChannel){
             message.member.voiceChannel.join()
@@ -53,6 +53,6 @@ client.on('message', message => {
     if(!message.guild) return;
     if(message.content === (`${prefix}disconnect`)) {
         message.member.voiceChannel.leave()
-    }*/
+    }
 })
     client.login(token)

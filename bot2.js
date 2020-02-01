@@ -1,6 +1,9 @@
+require('dotenv').config()
 const processCommand = require('./Commands/handler')
 const Discord = require('discord.js')
-const { prefix, token } = require('./config.json');
+//const { prefix, token } = require('./config.json');
+const prefix = process.env.prefix;
+const token = process.env.token;
 const client = new Discord.Client();
 
 client.on('ready', () => {

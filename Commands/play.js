@@ -1,4 +1,5 @@
-const {GoogleApi} = require("../config.json");
+//const {GoogleApi} = require("../config.json");
+const GoogleApi = process.env.GoogleApi;
 const play = require("./play")
 const ytdl = require('ytdl-core')
 const search = require('youtube-search');

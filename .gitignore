@@ -95,9 +95,8 @@ public/
 # DynamoDB Local files
 .dynamodb/
 
-#Config
-
-config.json
+#Env
+.env
 
 ### VisualStudioCode ###
 .vscode/*

@@ -1,9 +1,9 @@
-const {GoogleApi, cseID} = require("../config.json");
+const GoogleApi = process.env.GoogleApi;
+const cseID = process.env.cseID;
 const imageSearch = require('image-search-google');
 const options = {page:1, type:"safe"};
 const google = new imageSearch(cseID, GoogleApi);
 const { RichEmbed } = require('discord.js');
-const config = require('../config');
 
 module.exports = class ImageCommand {
     constructor(){
